@@ -83,34 +83,36 @@ clear all; close all;
 % y = [0 0 1 1; ...
 %      0 1 1 0];
 % plot(x,y), axis([-5, 5, -5, 5]), hold on,  grid on
+time = 500;
 
-x0 = [0, -1, -1, 0; ...
+auto0_x = [0, -1, -1, 0; ...
      -1, -1, 0, 0];
-y0 = [10 10 9 9; ...
+auto0_y = [10 10 9 9; ...
      10 9 9 10];
 
-x1 = [0 1 1 0; ...
+auto1_x = [0 1 1 0; ...
      1 1 0 0];
-y1 = [-10 -10 -9 -9; ...
+auto1_y = [-10 -10 -9 -9; ...
      -10 -9 -9 -10];
  
-x2 = [0 1 1 0; ...
+auto2_x = [0 1 1 0; ...
      1 1 0 0];
-y2 = [-5 -5 -4 -4; ...
+auto2_y = [-5 -5 -4 -4; ...
      -5 -4 -4 -5];
 
-plot(x1, y1, 'k');
+plot(auto1_x, auto1_y, 'k');
 x_axis = [-10, 10]; y_axis = [-10, 10]; % axis limits
 tr = 0.1; tr1 = 0.05;
-for i=1:500
+
+for i=1:time
     clf
      
-    plot(x0,y0,'k'), axis([x_axis, y_axis]), grid on, hold on
-    plot(x1,y1,'k'), plot(x2, y2, 'k')
+    plot(auto0_x,auto0_y,'k'), axis([x_axis, y_axis]), grid on, hold on
+    plot(auto1_x,auto1_y,'k'), plot(auto2_x, auto2_y, 'k')
     line([-1.3 -1.3],y_axis), line([1.3 1.3],y_axis)
-    y0=y0-tr1*4; % changes in 1st object
-    y1=y1+tr1;
-    y2=y2+tr1*2;
+    auto0_y=auto0_y-tr1*4; % changes in 1st object
+    auto1_y=auto1_y+tr1;
+    auto2_y=auto2_y+tr1*2;
    
     
     pause(0.01)
