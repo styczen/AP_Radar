@@ -20,10 +20,6 @@ jj = animatedline(x4,y4);
 x = [1 5 5 1 1];
 y = [0 0 10 10 0];
 l = animatedline(x,y,'Color','r','LineWidth',3);
-% %Linia przerywana
-% xl = [-1/4 1/4 1/4 -1/4 -1/4];
-% yl = [0 0 5 5 0];
-% ll = animatedline(xl,yl,'Color','r','LineWidth',3);
 % Samochod inny
 xx = [1-6 5-6 5-6 1-6 1-6];
 yy = [0 0 10 10 0];
@@ -35,6 +31,7 @@ for k = 1:length(t)
     addpoints(j,x2(k),y2(k));
     addpoints(l,x,y-9+k/10);
 
+% Usuwanie o tworzenie nowych obiektów
     if mod(k,800)==400
     clearpoints(h);
     clearpoints(j);
@@ -52,6 +49,7 @@ for k = 1:length(t)
             clearpoints(tt);
         end
     end
+% Zmiana punktu odniesienia
         axis([-10,10,-10+t(k),15+t(k)])
 %     axis([-10,10,-10,500])
     drawnow;
