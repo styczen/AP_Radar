@@ -80,7 +80,7 @@ for i=2:time
     obj1_z(:,:,i) = obj1_z(:,:,i-1);
     obj2_z(:,:,i) = obj2_z(:,:,i-1);
     obj3_z(:,:,i) = obj3_z(:,:,i-1);
-    obj4_y(:,:,i) = obj4_y(:,:,i-1);        
+    obj4_z(:,:,i) = obj4_z(:,:,i-1);        
     
     % calculation visibility from our vehicle
     if sqrt(obj0_x(1, 1, i)^2 + obj0_y(1, 1, i)^2) < visibility
@@ -103,12 +103,12 @@ end
 % Saving generated data to structure which will be saved to .mat file and
 % used in simulation
 % Types: 1-car, 2-pedestrian, 3-sign, 4-building
-object = struct('type', {1, 1, 1, 4}, ...
+object = struct('type', {1, 1, 1, 4, 2}, ...
     'x', {obj0_x, obj1_x, obj2_x, obj3_x, obj4_x}, ... 
     'y', {obj0_y, obj1_y, obj2_y, obj3_y, obj4_y}, ...
     'z', {obj0_z, obj1_z, obj2_z, obj3_z, obj4_z},...
-    'speed', {tr1, -tr1*4, tr1*2, tr1/2, },...
-    'visibility', {vis_0, vis_1, vis_2, vis_3});
+    'speed', {tr1, -tr1*4, tr1*2, -tr1, tr1/2},...
+    'visibility', {vis_0, vis_1, vis_2, vis_3, vis_4});
 
 % Saving object to .mat file with time vector
 save('dane.mat', 'object', 'time')
