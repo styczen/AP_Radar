@@ -38,6 +38,6 @@ end
 
 %view([-kat,0]) %k¹t patrzenia [azymut, elewacja]
 %axis vis3d     %automatycznie dopasowuje widok do obiektu
-set(gca, 'visible', 'off')  %niewidoczne osie wykresu
+% set(gca, 'visible', 'off')  %niewidoczne osie wykresu
 camproj('perspective')
 end
