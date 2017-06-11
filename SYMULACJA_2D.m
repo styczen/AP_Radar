@@ -23,7 +23,7 @@ for i=1:time-211 % time loop
         kat=kat-90
     end
     view([-kat,1])
-    camzoom(4)
+    camzoom(4)  %zoom srodka plota
 %     xlabel('x'), ylabel('y'), zlabel('z')
     for j=1:size(object,2) % Loop to display every object
         if (object(j).visibility(i) == 1) 
