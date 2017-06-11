@@ -2,12 +2,12 @@
 close all, clear all;
 
 load dane.mat % loading data from .mat file
-z_axis = [0, 50]; % axis limits
+z_axis = [-20, 30]; % axis limits
 
 for i=1:time-211 % time loop
     clf
     
-    x_axis=[x(i)-25 x(i)+25];
+    x_axis=[x(i)-20 x(i)+30];
     y_axis=[i i+50];
     axis([x_axis, y_axis, z_axis])
     
@@ -23,7 +23,7 @@ for i=1:time-211 % time loop
         kat=kat-90
     end
     view([-kat,1])
-
+    camzoom(4)
 %     xlabel('x'), ylabel('y'), zlabel('z')
     for j=1:size(object,2) % Loop to display every object
         if (object(j).visibility(i) == 1) 
@@ -31,7 +31,7 @@ for i=1:time-211 % time loop
         end
     end    
     if i==2
-        pause(5)
+        pause(55)
     end
     
     %line([-1.3 -1.3],y_axis), line([1.3 1.3],y_axis) % road boundaries
