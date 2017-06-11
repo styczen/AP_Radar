@@ -2,30 +2,41 @@
 close all, clear all;
 
 load dane.mat % loading data from .mat file
-x_axis = [-10, 10]; y_axis = [0, 10]; % axis limits
+z_axis = [-20, 30]; % axis limits
 
-for i=1:time % time loop
-    clf     
-%     plot(object(1).x(:,:,i), object(1).y(:,:,i),'k')
-%     axis([x_axis, object(1).y(i,1) object(1).y(i,1)+vis])
-    axis([x_axis, y_axis])
+for i=1:time-211 % time loop
+    clf
+    
+    x_axis=[x(i)-20 x(i)+30];
+    y_axis=[i i+50];
+    axis([x_axis, y_axis, z_axis])
+    
     hold on
+    plot(x+2.5,y);  %road plot
+    plot(x-2.5,y);  %road plot
+    
+    %liczenie k¹ta nachylenia drogi i ustawienie widoku
+    kat=atan((y(i+20)-y(i))/abs((x(i+20)-x(i))))*180/pi;
+    if x(i+20)>x(i)
+        kat=90-kat
+    else
+        kat=kat-90
+    end
+    view([-kat,1])
+    camzoom(4)
+%     xlabel('x'), ylabel('y'), zlabel('z')
     for j=1:size(object,2) % Loop to display every object
         if (object(j).visibility(i) == 1) 
-            switch object(j).type
-            case 1 
-            plot(object(j).x(:,:,i), object(j).y(:,:,i), 'k')
-            case 2
-            plot(object(j).x(:,:,i), object(j).y(:,:,i), 'k')
-            case 3
-            plot(object(j).x(:,:,i), object(j).y(:,:,i), 'k')  
-            case 4 
-            plot(object(j).x(:,:,i), object(j).y(:,:,i), 'k')
-            end
+            plotObj(object(j), i)
         end
     end    
-    line([-1.3 -1.3],y_axis), line([1.3 1.3],y_axis) % road boundaries
+    if i==2
+        pause(55)
+    end
+    
+    %line([-1.3 -1.3],y_axis), line([1.3 1.3],y_axis) % road boundaries
     % because radar cannot see the road only higher objects
 
-    pause(0.01)
+%     pause(0.04)
+  pause(0.05)
 end
