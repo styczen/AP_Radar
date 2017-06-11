@@ -3,8 +3,8 @@ clear all
 
 % Input data generation
 time = 500; % simulation time
-visibility = 1000; % for simulation to use less memory
-tr1 = 1.5; % speed in regard to our vehicle
+visibility = 5000; % for simulation to use less memory
+tr1 = 1; % speed in regard to our vehicle
 
 % road
 % p1 = -8.1949e-09;
@@ -133,7 +133,7 @@ vis_7=zeros(time, 1); % car
 
 for i=2:time-211 
     % y - axis calculation
-    obj0_y(:,:,i) = obj0_y(:,:,i-1) - tr1*1.1; 
+    obj0_y(:,:,i) = obj0_y(:,:,i-1) - tr1*1; 
     obj1_y(:,:,i) = obj1_y(:,:,i-1) + tr1;
     obj2_y(:,:,i) = obj2_y(:,:,i-1) + tr1*1.2;
     obj3_y(:,:,i) = obj3_y(:,:,i-1) - tr1; % building
