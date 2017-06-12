@@ -8,8 +8,9 @@ for i=1:time-211 % time loop
     clf
     
     hold on
-    plot(x+2.5,y);  %road plot
-    plot(x-2.5,y);  %road plot
+    plot(x+2.5,y,'-r','LineWidth',1);   %road plot
+    plot(x,y,'--k');                    %road plot
+    plot(x-2.5,y,'-r','LineWidth',1);   %road plot
     
     %liczenie k¹ta nachylenia drogi
     kat=atan((y(i+20)-y(i))/abs((x(i+20)-x(i))))*180/pi;
@@ -25,7 +26,7 @@ for i=1:time-211 % time loop
     y_axis=[i i+50];
     axis([x_axis, y_axis, z_axis])
     
-    view([-kat,1])  %ustawienie k¹ta patrzenia
+    view([-kat,5])  %ustawienie k¹ta patrzenia
     camzoom(4)      %zoom srodka plota
 
     for j=1:size(object,2) % Loop to display every object
