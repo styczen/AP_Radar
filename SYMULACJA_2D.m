@@ -26,8 +26,8 @@ for i=1:time-211 % time loop
     y_axis=[i i+50];
     axis([x_axis, y_axis, z_axis])
     
-    view([-kat,5])  %ustawienie k¹ta patrzenia
-    camzoom(4)      %zoom srodka plota
+    view([-kat,0])  %ustawienie k¹ta patrzenia
+    camzoom(5.5)      %zoom srodka plota
 
     for j=1:size(object,2) % Loop to display every object
         if (object(j).visibility(i) == 1) 
@@ -37,9 +37,8 @@ for i=1:time-211 % time loop
     
     %Pausa na start
     if i==2
-        pause(5)    %w sekundach
+        pause(8)    %w sekundach
     end
     
-
   pause(0.05)   %szybkoœæ animacji
 end
