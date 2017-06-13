@@ -1,94 +1,33 @@
+% Generate objects for simulaton
 close all
 clear all
 
 % Input data generation
 time = 500; % simulation time
-visibility = 5000; % for simulation to use less memory
+visibility = 50; % for simulation to use less memory
 tr1 = 1; % speed in regard to our vehicle
 
-% road
+% Polynomial coeffiients describing the road
 p1 = -8.1949e-09;
 p2 = 6.6409e-06;
 p3 = -0.0016397;
 p4 = 0.1922;
 p5 = 0;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other version of polynomial coeffiients describing the road
 % p1 = -5.1073e-10;
 % p2 = 1.5322e-06;
 % p3 = -0.0014206;
 % p4 = 0.40715;
 % p5 = 0;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-y=0:time-1;
-x = p1*y.^4 + p2*y.^3 +p3*y.^2 + p4*y + p5; 
+% Polynomial describing the road
+y = 0:time-1;
+x = p1*y.^4 + p2*y.^3 + p3*y.^2 + p4*y + p5; 
 
-% generation of clean matrices
-% obj0_x = zeros(2, 4, time);
-% obj0_y = zeros(2, 4, time);
-% 
-% obj1_x = zeros(2, 4, time);
-% obj1_y = zeros(2, 4, time);
-% 
-% obj2_x = zeros(2, 4, time);
-% obj2_y = zeros(2, 4, time);
-% 
-% obj3_x = zeros(2, 4, time);
-% obj3_y = zeros(2, 4, time);
-% 
-% obj4_x = zeros(2, 4, time); % pedestrian
-% obj4_y = zeros(2, 4, time); 
-
-obj0_x = zeros(1, 4, time);
-obj0_y = zeros(1, 4, time);
-
-obj1_x = zeros(1, 4, time);
-obj1_y = zeros(1, 4, time);
-
-obj2_x = zeros(1, 4, time);
-obj2_y = zeros(1, 4, time);
-
-obj3_x = zeros(1, 4, time);
-obj3_y = zeros(1, 4, time);
-
-obj4_x = zeros(1, 4, time); % pedestrian
-obj4_y = zeros(1, 4, time); 
-
-obj5_x = zeros(1, 4, time); % building
-obj5_y = zeros(1, 4, time); 
-
-obj6_x = zeros(1, 4, time); % car
-obj6_y = zeros(1, 4, time); 
-
-obj7_x = zeros(1, 4, time); % car
-obj7_y = zeros(1, 4, time); 
-
-% starting positions
-% obj0_x(:,:,1) = [0, -1.7, -1.7, 0; ...
-%                 -1.7, -1.7, 0, 0];
-% obj0_y(:,:,1) = [4 4 0 0; ...
-%                  4 0 0 4];
-% obj0_z(:,:,1) = 1.4;
-%              
-% obj1_x(:,:,1) = obj0_x(:,:,1)+2;
-% obj1_y(:,:,1) = obj0_y(:,:,1)+6;
-% obj1_z(:,:,1) = 1.4;
-% 
-% obj2_x(:,:,1) = obj0_x(:,:,1)+2;
-% obj2_y(:,:,1) = obj0_y(:,:,1)+15;
-% obj2_z(:,:,1) = 1.4;
-%              
-% obj3_x(:,:,1) = [-7 -3 -3 -7; ...
-%                  -3 -3 -7 -7];
-% obj3_y(:,:,1) = [10 10 20 20; ...
-%                  10 20 20 10];
-% obj3_z(:,:,1) = 10; % builiding
-% 
-% obj4_x(:,:,1) = [-5 -4 -4 -5; ...
-%                  -4 -4 -5 -5];
-% obj4_y(:,:,1) = [3 3 4 4; ...
-%                  3 4 4 3];
-% obj4_z(:,:,1) = 0.80; % pedestrian
-
+% Starting positions of objects
 obj0_x(:,:,1) = [0, -1.7, -1.7, 0];
 obj0_y(:,:,1) = [4 4 0 0];
 obj0_z(:,:,1) = 1.4; % car
@@ -116,15 +55,12 @@ obj5_z(:,:,1) = 8; % builiding
 obj6_x(:,:,1) = [26.78 28.12 28.8 27.3];
 obj6_y(:,:,1) = [99 99 103 103];
 obj6_z(:,:,1) = 1.5; % car
-% 
+
 obj7_x(:,:,1) = [y(110)-2 y(110) y(114) y(114)-2];
 obj7_y(:,:,1) = [110 110 114 114];
 obj7_z(:,:,1) = 1.5; % car
 
-
-
-% BUDYNKI PO PRAWEJ STRONIE
-
+% Buildings on the right side
 obj8_x(:,:,1) = [8 4 4 8];
 obj8_y(:,:,1) = [23 23 34 34];
 obj8_z(:,:,1) = 5; % builiding
@@ -237,9 +173,7 @@ obj34_x(:,:,1) = [9 3 3 9];
 obj34_y(:,:,1) = [600 600 606 606];
 obj34_z(:,:,1) = 3; % builiding
 
-% BUDYNKI PO LEWEJ STRONIE
-
-
+% Buildings on the left side of the road
 obj35_x(:,:,1) = [-4 -10 -10 -4];
 obj35_y(:,:,1) = [23 23 34 34];
 obj35_z(:,:,1) = 3; % builiding
@@ -353,54 +287,47 @@ obj62_y(:,:,1) = [600 600 606 606];
 obj62_z(:,:,1) = 4; % builiding
 
 % Cars 
-
 obj63_x(:,:,1) = [y(110)-2 y(110) y(114) y(114)-2];
 obj63_y(:,:,1) = [150 150 154 154];
 obj63_z(:,:,1) = 1.5; % car
-
 obj64_x(:,:,1) = [y(200)-2 y(200) y(204) y(204)-2];
 obj64_y(:,:,1) = [200 200 204 204];
 obj64_z(:,:,1) = 1.5; % car
-
 obj65_x(:,:,1) = [y(300)-2 y(300) y(304) y(304)-2];
 obj65_y(:,:,1) = [300 300 304 304];
 obj65_z(:,:,1) = 1.5; % car
-
 obj66_x(:,:,1) = [y(400)-2 y(400) y(404) y(404)-2];
 obj66_y(:,:,1) = [400 400 404 404];
 obj66_z(:,:,1) = 1.5; % car
-
 obj67_x(:,:,1) = [y(490)-2 y(490) y(494) y(494)-2];
 obj67_y(:,:,1) = [490 490 494 494];
 obj67_z(:,:,1) = 1.5; % car
 
-
-% PIESI PO PRAWEJ
+% Pedestrians on the right side of the road
 obj68_x(:,:,1) = [3 3.5 3.5 3];
 obj68_y(:,:,1) = [60 60 60.5 60.5];
 obj68_z(:,:,1) = 0.80; % pedestrian /-2
 
 obj69_x(:,:,1) = [3 3.5 3.5 3];
 obj69_y(:,:,1) = [100 100 100.5 100.5];
-obj69_z(:,:,1) = 0.80; % pedestrian /2
+obj69_z(:,:,1) = 0.80; % pedestrian
 
 obj70_x(:,:,1) = [3 3.5 3.5 3];
 obj70_y(:,:,1) = [150 150 150.5 150.5];
-obj70_z(:,:,1) = 0.80; % pedestrian /-2
+obj70_z(:,:,1) = 0.80; % pedestrian
 
-
-% PIESI PO LEWEJ
+% Pedestrians on the  left side of the road
 obj71_x(:,:,1) = [-3 -2.5 -2.5 -3];
 obj71_y(:,:,1) = [30 30 30.5 30.5];
 obj71_z(:,:,1) = 0.80; % pedestrian
 
 obj72_x(:,:,1) = [-3 -2.5 -2.5 -3];
 obj72_y(:,:,1) = [55 55 55.5 55.5];
-obj72_z(:,:,1) = 0.80; % pedestrian /2
+obj72_z(:,:,1) = 0.80; % pedestrian
 
 obj73_x(:,:,1) = [-3 -2.5 -2.5 -3];
 obj73_y(:,:,1) = [120.5 120.5 121 121];
-obj73_z(:,:,1) = 0.80; % pedestrian ok
+obj73_z(:,:,1) = 0.80; % pedestrian
 
 % visibility vectors
 vis_0=zeros(time, 1);
@@ -411,7 +338,6 @@ vis_4=zeros(time, 1); % pedestrian
 vis_5=zeros(time, 1); % building
 vis_6=zeros(time, 1); % car
 vis_7=zeros(time, 1); % car
-
 vis_8=zeros(time, 1); % building
 vis_9=zeros(time, 1); % building
 vis_10=zeros(time, 1); % building
@@ -467,13 +393,11 @@ vis_59=zeros(time, 1); % building
 vis_60=zeros(time, 1); % building
 vis_61=zeros(time, 1); % building
 vis_62=zeros(time, 1); % building
-
 vis_63=zeros(time, 1); % building
 vis_64=zeros(time, 1); % building
 vis_65=zeros(time, 1); % building
 vis_66=zeros(time, 1); % building
 vis_67=zeros(time, 1); % building
-
 vis_68=zeros(time, 1); % building
 vis_69=zeros(time, 1); % building
 vis_70=zeros(time, 1); % building
@@ -481,7 +405,7 @@ vis_71=zeros(time, 1); % building
 vis_72=zeros(time, 1); % building
 vis_73=zeros(time, 1); % building
 
-for i=2:time-211 
+for i=2:time
     % y - axis calculation
     obj0_y(:,:,i) = obj0_y(:,:,i-1) - tr1*1; 
     obj1_y(:,:,i) = obj1_y(:,:,i-1) + tr1;
@@ -491,7 +415,6 @@ for i=2:time-211
     obj5_y(:,:,i) = obj5_y(:,:,i-1) - tr1; % building
     obj6_y(:,:,i) = obj6_y(:,:,i-1) - tr1*1.1; % car
     obj7_y(:,:,i) = obj7_y(:,:,i-1) - tr1*1.1; % car
-    
     obj8_y(:,:,i) = obj8_y(:,:,i-1) - tr1; % building
     obj9_y(:,:,i) = obj9_y(:,:,i-1) - tr1; % building
     obj10_y(:,:,i) = obj10_y(:,:,i-1) - tr1; % building
@@ -547,13 +470,11 @@ for i=2:time-211
     obj60_y(:,:,i) = obj60_y(:,:,i-1) - tr1; % building
     obj61_y(:,:,i) = obj61_y(:,:,i-1) - tr1; % building
     obj62_y(:,:,i) = obj62_y(:,:,i-1) - tr1; % building
-    
     obj63_y(:,:,i) = obj63_y(:,:,i-1) - tr1*1.1; % car
     obj64_y(:,:,i) = obj64_y(:,:,i-1) - tr1*1.1; % car
     obj65_y(:,:,i) = obj65_y(:,:,i-1) - tr1*1.1; % car
     obj66_y(:,:,i) = obj66_y(:,:,i-1) - tr1*1.1; % car
     obj67_y(:,:,i) = obj67_y(:,:,i-1) - tr1*1.1; % car
-    
     obj68_y(:,:,i) = obj68_y(:,:,i-1) + tr1/4; % pedestrian
     obj69_y(:,:,i) = obj69_y(:,:,i-1) - tr1/6; % pedestrian
     obj70_y(:,:,i) = obj70_y(:,:,i-1) - tr1/6; % pedestrian
@@ -570,7 +491,6 @@ for i=2:time-211
     y05= p1*obj5_y(:,:,i).^4 + p2*obj5_y(:,:,i).^3 +p3*obj5_y(:,:,i).^2 + p4*obj5_y(:,:,i);
     y06= p1*obj6_y(:,:,i).^4 + p2*obj6_y(:,:,i).^3 +p3*obj6_y(:,:,i).^2 + p4*obj6_y(:,:,i);
     y07= p1*obj7_y(:,:,i).^4 + p2*obj7_y(:,:,i).^3 +p3*obj7_y(:,:,i).^2 + p4*obj7_y(:,:,i);
-    
     y08= p1*obj8_y(:,:,i).^4 + p2*obj8_y(:,:,i).^3 +p3*obj8_y(:,:,i).^2 + p4*obj8_y(:,:,i);
     y09= p1*obj9_y(:,:,i).^4 + p2*obj9_y(:,:,i).^3 +p3*obj9_y(:,:,i).^2 + p4*obj9_y(:,:,i);
     y010= p1*obj10_y(:,:,i).^4 + p2*obj10_y(:,:,i).^3 +p3*obj10_y(:,:,i).^2 + p4*obj10_y(:,:,i);
@@ -626,13 +546,11 @@ for i=2:time-211
     y060= p1*obj60_y(:,:,i).^4 + p2*obj60_y(:,:,i).^3 +p3*obj60_y(:,:,i).^2 + p4*obj60_y(:,:,i);
     y061= p1*obj61_y(:,:,i).^4 + p2*obj61_y(:,:,i).^3 +p3*obj61_y(:,:,i).^2 + p4*obj61_y(:,:,i);
     y062= p1*obj62_y(:,:,i).^4 + p2*obj62_y(:,:,i).^3 +p3*obj52_y(:,:,i).^2 + p4*obj62_y(:,:,i);
-    
     y063= p1*obj63_y(:,:,i).^4 + p2*obj63_y(:,:,i).^3 +p3*obj63_y(:,:,i).^2 + p4*obj63_y(:,:,i);
     y064= p1*obj64_y(:,:,i).^4 + p2*obj64_y(:,:,i).^3 +p3*obj64_y(:,:,i).^2 + p4*obj64_y(:,:,i);
     y065= p1*obj65_y(:,:,i).^4 + p2*obj65_y(:,:,i).^3 +p3*obj65_y(:,:,i).^2 + p4*obj65_y(:,:,i);
     y066= p1*obj66_y(:,:,i).^4 + p2*obj66_y(:,:,i).^3 +p3*obj66_y(:,:,i).^2 + p4*obj66_y(:,:,i);
     y067= p1*obj67_y(:,:,i).^4 + p2*obj67_y(:,:,i).^3 +p3*obj67_y(:,:,i).^2 + p4*obj67_y(:,:,i);
-    
     y068= p1*obj68_y(:,:,i).^4 + p2*obj68_y(:,:,i).^3 +p3*obj68_y(:,:,i).^2 + p4*obj68_y(:,:,i);
     y069= p1*obj69_y(:,:,i).^4 + p2*obj69_y(:,:,i).^3 +p3*obj69_y(:,:,i).^2 + p4*obj69_y(:,:,i);
     y070= p1*obj70_y(:,:,i).^4 + p2*obj70_y(:,:,i).^3 +p3*obj70_y(:,:,i).^2 + p4*obj70_y(:,:,i);
@@ -648,7 +566,6 @@ for i=2:time-211
     obj5_x(:,:,i) = obj5_x(:,:,1)+y05; % building
     obj6_x(:,:,i) = y06-[2 0 0 2]; % car
     obj7_x(:,:,i) = y07-[2 0 0 2]; % car
-    
     obj8_x(:,:,i) = obj8_x(:,:,1)+y08; % building
     obj9_x(:,:,i) = obj9_x(:,:,1)+y09; % building
     obj10_x(:,:,i) = obj10_x(:,:,1)+y010; % building
@@ -704,13 +621,11 @@ for i=2:time-211
     obj60_x(:,:,i) = obj60_x(:,:,1)+y060; % building
     obj61_x(:,:,i) = obj61_x(:,:,1)+y061; % building
     obj62_x(:,:,i) = obj62_x(:,:,1)+y062; % building
-    
     obj63_x(:,:,i) = y063-[2 0 0 2]; % car
     obj64_x(:,:,i) = y064-[2 0 0 2]; % car
     obj65_x(:,:,i) = y065-[2 0 0 2]; % car
     obj66_x(:,:,i) = y066-[2 0 0 2]; % car
     obj67_x(:,:,i) = y067-[2 0 0 2]; % car
-    
     obj68_x(:,:,i) = obj68_x(:,:,1)+y068; % building
     obj69_x(:,:,i) = obj69_x(:,:,1)+y069; % building
     obj70_x(:,:,i) = obj70_x(:,:,1)+y070; % building
@@ -727,7 +642,6 @@ for i=2:time-211
     obj5_z(:,:,i) = obj5_z(:,:,i-1);  
     obj6_z(:,:,i) = obj6_z(:,:,i-1);  
     obj7_z(:,:,i) = obj7_z(:,:,i-1); 
-
     obj8_z(:,:,i) = obj8_z(:,:,i-1); 
     obj9_z(:,:,i) = obj9_z(:,:,i-1);
     obj10_z(:,:,i) = obj10_z(:,:,i-1); 
@@ -783,13 +697,11 @@ for i=2:time-211
     obj60_z(:,:,i) = obj60_z(:,:,i-1); 
     obj61_z(:,:,i) = obj61_z(:,:,i-1);
     obj62_z(:,:,i) = obj62_z(:,:,i-1); 
-    
     obj63_z(:,:,i) = obj63_z(:,:,i-1);
     obj64_z(:,:,i) = obj64_z(:,:,i-1);
     obj65_z(:,:,i) = obj65_z(:,:,i-1);
     obj66_z(:,:,i) = obj66_z(:,:,i-1); 
     obj67_z(:,:,i) = obj67_z(:,:,i-1);
-    
     obj68_z(:,:,i) = obj68_z(:,:,i-1); 
     obj69_z(:,:,i) = obj69_z(:,:,i-1);
     obj70_z(:,:,i) = obj70_z(:,:,i-1); 
@@ -798,226 +710,448 @@ for i=2:time-211
     obj73_z(:,:,i) = obj73_z(:,:,i-1);
     
     % calculation visibility from our vehicle
-    if sqrt(obj0_x(1, 1, i)^2 + obj0_y(1, 1, i)^2) < visibility
+%     if sqrt(obj0_x(1, 1, i)^2 + obj0_y(1, 1, i)^2) < visibility
+%         vis_0(i) = 1;
+%     end
+%     if sqrt(obj1_x(1, 1, i)^2 + obj1_y(1, 1, i)^2) < visibility
+%         vis_1(i) = 1;
+%     end
+%     if sqrt(obj2_x(1, 1, i)^2 + obj2_y(1, 1, i)^2) < visibility
+%         vis_2(i) = 1;
+%     end
+%     if sqrt(obj3_x(1, 1, i)^2 + obj3_y(1, 1, i)^2) < visibility
+%         vis_3(i) = 1;
+%     end
+%     if sqrt(obj4_x(1, 1, i)^2 + obj4_y(1, 1, i)^2) < visibility
+%         vis_4(i) = 1;
+%     end
+%     if sqrt(obj5_x(1, 1, i)^2 + obj5_y(1, 1, i)^2) < visibility
+%         vis_5(i) = 1;
+%     end
+%     if sqrt(obj6_x(1, 1, i)^2 + obj6_y(1, 1, i)^2) < visibility
+%         vis_6(i) = 1;
+%     end
+%     if sqrt(obj7_x(1, 1, i)^2 + obj7_y(1, 1, i)^2) < visibility
+%         vis_7(i) = 1;
+%     end
+%     if sqrt(obj8_x(1, 1, i)^2 + obj8_y(1, 1, i)^2) < visibility
+%         vis_8(i) = 1;
+%     end
+%     if sqrt(obj9_x(1, 1, i)^2 + obj9_y(1, 1, i)^2) < visibility
+%         vis_9(i) = 1;
+%     end
+%     if sqrt(obj10_x(1, 1, i)^2 + obj10_y(1, 1, i)^2) < visibility
+%         vis_10(i) = 1;
+%     end
+%     if sqrt(obj11_x(1, 1, i)^2 + obj11_y(1, 1, i)^2) < visibility
+%         vis_11(i) = 1;
+%     end
+%     if sqrt(obj12_x(1, 1, i)^2 + obj12_y(1, 1, i)^2) < visibility
+%         vis_12(i) = 1;
+%     end
+%     if sqrt(obj13_x(1, 1, i)^2 + obj13_y(1, 1, i)^2) < visibility
+%         vis_13(i) = 1;
+%     end
+%     if sqrt(obj14_x(1, 1, i)^2 + obj14_y(1, 1, i)^2) < visibility
+%         vis_14(i) = 1;
+%     end
+%     if sqrt(obj15_x(1, 1, i)^2 + obj15_y(1, 1, i)^2) < visibility
+%         vis_15(i) = 1;
+%     end
+%     if sqrt(obj16_x(1, 1, i)^2 + obj16_y(1, 1, i)^2) < visibility
+%         vis_16(i) = 1;
+%     end
+%     if sqrt(obj17_x(1, 1, i)^2 + obj17_y(1, 1, i)^2) < visibility
+%         vis_17(i) = 1;
+%     end
+%     if sqrt(obj18_x(1, 1, i)^2 + obj18_y(1, 1, i)^2) < visibility
+%         vis_18(i) = 1;
+%     end
+%     if sqrt(obj19_x(1, 1, i)^2 + obj19_y(1, 1, i)^2) < visibility
+%         vis_19(i) = 1;
+%     end
+%     if sqrt(obj20_x(1, 1, i)^2 + obj20_y(1, 1, i)^2) < visibility
+%         vis_20(i) = 1;
+%     end
+%     if sqrt(obj21_x(1, 1, i)^2 + obj21_y(1, 1, i)^2) < visibility
+%         vis_21(i) = 1;
+%     end
+%     if sqrt(obj22_x(1, 1, i)^2 + obj22_y(1, 1, i)^2) < visibility
+%         vis_22(i) = 1;
+%     end
+%     if sqrt(obj23_x(1, 1, i)^2 + obj23_y(1, 1, i)^2) < visibility
+%         vis_23(i) = 1;
+%     end
+%     if sqrt(obj24_x(1, 1, i)^2 + obj24_y(1, 1, i)^2) < visibility
+%         vis_24(i) = 1;
+%     end
+%     if sqrt(obj25_x(1, 1, i)^2 + obj25_y(1, 1, i)^2) < visibility
+%         vis_25(i) = 1;
+%     end
+%     if sqrt(obj26_x(1, 1, i)^2 + obj26_y(1, 1, i)^2) < visibility
+%         vis_26(i) = 1;
+%     end
+%     if sqrt(obj27_x(1, 1, i)^2 + obj27_y(1, 1, i)^2) < visibility
+%         vis_27(i) = 1;
+%     end
+%     if sqrt(obj28_x(1, 1, i)^2 + obj28_y(1, 1, i)^2) < visibility
+%         vis_28(i) = 1;
+%     end
+%     if sqrt(obj29_x(1, 1, i)^2 + obj29_y(1, 1, i)^2) < visibility
+%         vis_29(i) = 1;
+%     end
+%     if sqrt(obj30_x(1, 1, i)^2 + obj30_y(1, 1, i)^2) < visibility
+%         vis_30(i) = 1;
+%     end
+%     if sqrt(obj31_x(1, 1, i)^2 + obj31_y(1, 1, i)^2) < visibility
+%         vis_31(i) = 1;
+%     end
+%     if sqrt(obj32_x(1, 1, i)^2 + obj32_y(1, 1, i)^2) < visibility
+%         vis_32(i) = 1;
+%     end
+%     if sqrt(obj33_x(1, 1, i)^2 + obj33_y(1, 1, i)^2) < visibility
+%         vis_33(i) = 1;
+%     end
+%     if sqrt(obj34_x(1, 1, i)^2 + obj34_y(1, 1, i)^2) < visibility
+%         vis_34(i) = 1;
+%     end
+%     if sqrt(obj35_x(1, 1, i)^2 + obj35_y(1, 1, i)^2) < visibility
+%         vis_35(i) = 1;
+%     end
+%     if sqrt(obj36_x(1, 1, i)^2 + obj36_y(1, 1, i)^2) < visibility
+%         vis_36(i) = 1;
+%     end
+%     if sqrt(obj37_x(1, 1, i)^2 + obj37_y(1, 1, i)^2) < visibility
+%         vis_37(i) = 1;
+%     end
+%     if sqrt(obj38_x(1, 1, i)^2 + obj38_y(1, 1, i)^2) < visibility
+%         vis_38(i) = 1;
+%     end
+%     if sqrt(obj39_x(1, 1, i)^2 + obj39_y(1, 1, i)^2) < visibility
+%         vis_39(i) = 1;
+%     end
+%     if sqrt(obj40_x(1, 1, i)^2 + obj40_y(1, 1, i)^2) < visibility
+%         vis_40(i) = 1;
+%     end
+%     if sqrt(obj41_x(1, 1, i)^2 + obj41_y(1, 1, i)^2) < visibility
+%         vis_41(i) = 1;
+%     end
+%     if sqrt(obj42_x(1, 1, i)^2 + obj42_y(1, 1, i)^2) < visibility
+%         vis_42(i) = 1;
+%     end
+%     if sqrt(obj43_x(1, 1, i)^2 + obj43_y(1, 1, i)^2) < visibility
+%         vis_43(i) = 1;
+%     end
+%     if sqrt(obj44_x(1, 1, i)^2 + obj44_y(1, 1, i)^2) < visibility
+%         vis_44(i) = 1;
+%     end
+%     if sqrt(obj45_x(1, 1, i)^2 + obj45_y(1, 1, i)^2) < visibility
+%         vis_45(i) = 1;
+%     end
+%     if sqrt(obj46_x(1, 1, i)^2 + obj46_y(1, 1, i)^2) < visibility
+%         vis_46(i) = 1;
+%     end
+%     if sqrt(obj47_x(1, 1, i)^2 + obj47_y(1, 1, i)^2) < visibility
+%         vis_47(i) = 1;
+%     end
+%     if sqrt(obj48_x(1, 1, i)^2 + obj48_y(1, 1, i)^2) < visibility
+%         vis_48(i) = 1;
+%     end
+%     if sqrt(obj49_x(1, 1, i)^2 + obj49_y(1, 1, i)^2) < visibility
+%         vis_49(i) = 1;
+%     end
+%     if sqrt(obj50_x(1, 1, i)^2 + obj50_y(1, 1, i)^2) < visibility
+%         vis_50(i) = 1;
+%     end
+%     if sqrt(obj51_x(1, 1, i)^2 + obj51_y(1, 1, i)^2) < visibility
+%         vis_51(i) = 1;
+%     end
+%     if sqrt(obj52_x(1, 1, i)^2 + obj52_y(1, 1, i)^2) < visibility
+%         vis_52(i) = 1;
+%     end
+%     if sqrt(obj53_x(1, 1, i)^2 + obj53_y(1, 1, i)^2) < visibility
+%         vis_53(i) = 1;
+%     end
+%     if sqrt(obj54_x(1, 1, i)^2 + obj54_y(1, 1, i)^2) < visibility
+%         vis_54(i) = 1;
+%     end
+%     if sqrt(obj55_x(1, 1, i)^2 + obj55_y(1, 1, i)^2) < visibility
+%         vis_55(i) = 1;
+%     end
+%     if sqrt(obj56_x(1, 1, i)^2 + obj56_y(1, 1, i)^2) < visibility
+%         vis_56(i) = 1;
+%     end
+%     if sqrt(obj57_x(1, 1, i)^2 + obj57_y(1, 1, i)^2) < visibility
+%         vis_57(i) = 1;
+%     end
+%     if sqrt(obj58_x(1, 1, i)^2 + obj58_y(1, 1, i)^2) < visibility
+%         vis_58(i) = 1;
+%     end
+%     if sqrt(obj59_x(1, 1, i)^2 + obj59_y(1, 1, i)^2) < visibility
+%         vis_59(i) = 1;
+%     end
+%     if sqrt(obj60_x(1, 1, i)^2 + obj60_y(1, 1, i)^2) < visibility
+%         vis_60(i) = 1;
+%     end
+%     if sqrt(obj61_x(1, 1, i)^2 + obj61_y(1, 1, i)^2) < visibility
+%         vis_61(i) = 1;
+%     end
+%     if sqrt(obj62_x(1, 1, i)^2 + obj62_y(1, 1, i)^2) < visibility
+%         vis_62(i) = 1;
+%     end
+%     if sqrt(obj63_x(1, 1, i)^2 + obj63_y(1, 1, i)^2) < visibility
+%         vis_63(i) = 1;
+%     end
+%     if sqrt(obj64_x(1, 1, i)^2 + obj64_y(1, 1, i)^2) < visibility
+%         vis_64(i) = 1;
+%     end
+%     if sqrt(obj65_x(1, 1, i)^2 + obj65_y(1, 1, i)^2) < visibility
+%         vis_65(i) = 1;
+%     end
+%     if sqrt(obj66_x(1, 1, i)^2 + obj66_y(1, 1, i)^2) < visibility
+%         vis_66(i) = 1;
+%     end
+%     if sqrt(obj67_x(1, 1, i)^2 + obj67_y(1, 1, i)^2) < visibility
+%         vis_67(i) = 1;
+%     end
+%     if sqrt(obj68_x(1, 1, i)^2 + obj68_y(1, 1, i)^2) < visibility
+%         vis_68(i) = 1;
+%     end
+%     if sqrt(obj69_x(1, 1, i)^2 + obj69_y(1, 1, i)^2) < visibility
+%         vis_69(i) = 1;
+%     end
+%     if sqrt(obj70_x(1, 1, i)^2 + obj70_y(1, 1, i)^2) < visibility
+%         vis_70(i) = 1;
+%     end
+%     if sqrt(obj71_x(1, 1, i)^2 + obj71_y(1, 1, i)^2) < visibility
+%         vis_71(i) = 1;
+%     end
+%     if sqrt(obj72_x(1, 1, i)^2 + obj57_y(1, 1, i)^2) < visibility
+%         vis_72(i) = 1;
+%     end
+%     if sqrt((obj73_x(1, 1, i)-x(i))^2 + (obj73_y(1, 1, i)-y(i))^2) < visibility
+%         vis_73(i) = 1;
+%     end
+if sqrt((obj0_x(1, 1, i)-x(i))^2 + (obj0_y(1, 1, i)-y(i))^2) < visibility
         vis_0(i) = 1;
     end
-    if sqrt(obj1_x(1, 1, i)^2 + obj1_y(1, 1, i)^2) < visibility
+    if sqrt((obj1_x(1, 1, i)-x(i))^2 + (obj1_y(1, 1, i)-y(i))^2) < visibility
         vis_1(i) = 1;
     end
-    if sqrt(obj2_x(1, 1, i)^2 + obj2_y(1, 1, i)^2) < visibility
+    if sqrt((obj2_x(1, 1, i)-x(i))^2 + (obj2_y(1, 1, i)-y(i))^2) < visibility
         vis_2(i) = 1;
     end
-    if sqrt(obj3_x(1, 1, i)^2 + obj3_y(1, 1, i)^2) < visibility
+    if sqrt((obj3_x(1, 1, i)-x(i))^2 + (obj3_y(1, 1, i)-y(i))^2) < visibility
         vis_3(i) = 1;
     end
-    if sqrt(obj4_x(1, 1, i)^2 + obj4_y(1, 1, i)^2) < visibility
+    if sqrt((obj4_x(1, 1, i)-x(i))^2 + (obj4_y(1, 1, i)-y(i))^2) < visibility
         vis_4(i) = 1;
     end
-    if sqrt(obj5_x(1, 1, i)^2 + obj5_y(1, 1, i)^2) < visibility
+    if sqrt((obj5_x(1, 1, i)-x(i))^2 + (obj5_y(1, 1, i)-y(i))^2) < visibility
         vis_5(i) = 1;
     end
-    if sqrt(obj6_x(1, 1, i)^2 + obj6_y(1, 1, i)^2) < visibility
+    if sqrt((obj6_x(1, 1, i)-x(i))^2 + (obj6_y(1, 1, i)-y(i))^2) < visibility
         vis_6(i) = 1;
     end
-    if sqrt(obj7_x(1, 1, i)^2 + obj7_y(1, 1, i)^2) < visibility
+    if sqrt((obj7_x(1, 1, i)-x(i))^2 + (obj7_y(1, 1, i)-y(i))^2) < visibility
         vis_7(i) = 1;
     end
-    if sqrt(obj8_x(1, 1, i)^2 + obj8_y(1, 1, i)^2) < visibility
+    if sqrt((obj8_x(1, 1, i)-x(i))^2 + (obj8_y(1, 1, i)-y(i))^2) < visibility
         vis_8(i) = 1;
     end
-    if sqrt(obj9_x(1, 1, i)^2 + obj9_y(1, 1, i)^2) < visibility
+    if sqrt((obj9_x(1, 1, i)-x(i))^2 + (obj9_y(1, 1, i)-y(i))^2) < visibility
         vis_9(i) = 1;
     end
-    if sqrt(obj10_x(1, 1, i)^2 + obj10_y(1, 1, i)^2) < visibility
+    if sqrt((obj10_x(1, 1, i)-x(i))^2 + (obj10_y(1, 1, i)-y(i))^2) < visibility
         vis_10(i) = 1;
     end
-    if sqrt(obj11_x(1, 1, i)^2 + obj11_y(1, 1, i)^2) < visibility
+    if sqrt((obj11_x(1, 1, i)-x(i))^2 + (obj11_y(1, 1, i)-y(i))^2) < visibility
         vis_11(i) = 1;
     end
-    if sqrt(obj12_x(1, 1, i)^2 + obj12_y(1, 1, i)^2) < visibility
+    if sqrt((obj12_x(1, 1, i)-x(i))^2 + (obj12_y(1, 1, i)-y(i))^2) < visibility
         vis_12(i) = 1;
     end
-    if sqrt(obj13_x(1, 1, i)^2 + obj13_y(1, 1, i)^2) < visibility
+    if sqrt((obj13_x(1, 1, i)-x(i))^2 + (obj13_y(1, 1, i)-y(i))^2) < visibility
         vis_13(i) = 1;
     end
-    if sqrt(obj14_x(1, 1, i)^2 + obj14_y(1, 1, i)^2) < visibility
+    if sqrt((obj14_x(1, 1, i)-x(i))^2 + (obj14_y(1, 1, i)-y(i))^2) < visibility
         vis_14(i) = 1;
     end
-    if sqrt(obj15_x(1, 1, i)^2 + obj15_y(1, 1, i)^2) < visibility
+    if sqrt((obj15_x(1, 1, i)-x(i))^2 + (obj15_y(1, 1, i)-y(i))^2) < visibility
         vis_15(i) = 1;
     end
-    if sqrt(obj16_x(1, 1, i)^2 + obj16_y(1, 1, i)^2) < visibility
+    if sqrt((obj16_x(1, 1, i)-x(i))^2 + (obj16_y(1, 1, i)-y(i))^2) < visibility
         vis_16(i) = 1;
     end
-    if sqrt(obj17_x(1, 1, i)^2 + obj17_y(1, 1, i)^2) < visibility
+    if sqrt((obj17_x(1, 1, i)-x(i))^2 + (obj17_y(1, 1, i)-y(i))^2) < visibility
         vis_17(i) = 1;
     end
-    if sqrt(obj18_x(1, 1, i)^2 + obj18_y(1, 1, i)^2) < visibility
+    if sqrt((obj18_x(1, 1, i)-x(i))^2 + (obj18_y(1, 1, i)-y(i))^2) < visibility
         vis_18(i) = 1;
     end
-    if sqrt(obj19_x(1, 1, i)^2 + obj19_y(1, 1, i)^2) < visibility
+    if sqrt((obj19_x(1, 1, i)-x(i))^2 + (obj19_y(1, 1, i)-y(i))^2) < visibility
         vis_19(i) = 1;
     end
-    if sqrt(obj20_x(1, 1, i)^2 + obj20_y(1, 1, i)^2) < visibility
+    if sqrt((obj20_x(1, 1, i)-x(i))^2 + (obj20_y(1, 1, i)-y(i))^2) < visibility
         vis_20(i) = 1;
     end
-    if sqrt(obj21_x(1, 1, i)^2 + obj21_y(1, 1, i)^2) < visibility
+    if sqrt((obj21_x(1, 1, i)-x(i))^2 + (obj21_y(1, 1, i)-y(i))^2) < visibility
         vis_21(i) = 1;
     end
-    if sqrt(obj22_x(1, 1, i)^2 + obj22_y(1, 1, i)^2) < visibility
+    if sqrt((obj22_x(1, 1, i)-x(i))^2 + (obj22_y(1, 1, i)-y(i))^2) < visibility
         vis_22(i) = 1;
     end
-    if sqrt(obj23_x(1, 1, i)^2 + obj23_y(1, 1, i)^2) < visibility
+    if sqrt((obj23_x(1, 1, i)-x(i))^2 + (obj23_y(1, 1, i)-y(i))^2) < visibility
         vis_23(i) = 1;
     end
-    if sqrt(obj24_x(1, 1, i)^2 + obj24_y(1, 1, i)^2) < visibility
+    if sqrt((obj24_x(1, 1, i)-x(i))^2 + (obj24_y(1, 1, i)-y(i))^2) < visibility
         vis_24(i) = 1;
     end
-    if sqrt(obj25_x(1, 1, i)^2 + obj25_y(1, 1, i)^2) < visibility
+    if sqrt((obj25_x(1, 1, i)-x(i))^2 + (obj25_y(1, 1, i)-y(i))^2) < visibility
         vis_25(i) = 1;
     end
-    if sqrt(obj26_x(1, 1, i)^2 + obj26_y(1, 1, i)^2) < visibility
+    if sqrt((obj26_x(1, 1, i)-x(i))^2 + (obj26_y(1, 1, i)-y(i))^2) < visibility
         vis_26(i) = 1;
     end
-    if sqrt(obj27_x(1, 1, i)^2 + obj27_y(1, 1, i)^2) < visibility
+    if sqrt((obj27_x(1, 1, i)-x(i))^2 + (obj27_y(1, 1, i)-y(i))^2) < visibility
         vis_27(i) = 1;
     end
-    if sqrt(obj28_x(1, 1, i)^2 + obj28_y(1, 1, i)^2) < visibility
+    if sqrt((obj28_x(1, 1, i)-x(i))^2 + (obj28_y(1, 1, i)-y(i))^2) < visibility
         vis_28(i) = 1;
     end
-    if sqrt(obj29_x(1, 1, i)^2 + obj29_y(1, 1, i)^2) < visibility
+    if sqrt((obj29_x(1, 1, i)-x(i))^2 + (obj29_y(1, 1, i)-y(i))^2) < visibility
         vis_29(i) = 1;
     end
-    if sqrt(obj30_x(1, 1, i)^2 + obj30_y(1, 1, i)^2) < visibility
+    if sqrt((obj30_x(1, 1, i)-x(i))^2 + (obj30_y(1, 1, i)-y(i))^2) < visibility
         vis_30(i) = 1;
     end
-    if sqrt(obj31_x(1, 1, i)^2 + obj31_y(1, 1, i)^2) < visibility
+    if sqrt((obj31_x(1, 1, i)-x(i))^2 + (obj31_y(1, 1, i)-y(i))^2) < visibility
         vis_31(i) = 1;
     end
-    if sqrt(obj32_x(1, 1, i)^2 + obj32_y(1, 1, i)^2) < visibility
+    if sqrt((obj32_x(1, 1, i)-x(i))^2 + (obj32_y(1, 1, i)-y(i))^2) < visibility
         vis_32(i) = 1;
     end
-    if sqrt(obj33_x(1, 1, i)^2 + obj33_y(1, 1, i)^2) < visibility
+    if sqrt((obj33_x(1, 1, i)-x(i))^2 + (obj33_y(1, 1, i)-y(i))^2) < visibility
         vis_33(i) = 1;
     end
-    if sqrt(obj34_x(1, 1, i)^2 + obj34_y(1, 1, i)^2) < visibility
+    if sqrt((obj34_x(1, 1, i)-x(i))^2 + (obj34_y(1, 1, i)-y(i))^2) < visibility
         vis_34(i) = 1;
     end
-    if sqrt(obj35_x(1, 1, i)^2 + obj35_y(1, 1, i)^2) < visibility
+    if sqrt((obj35_x(1, 1, i)-x(i))^2 + (obj35_y(1, 1, i)-y(i))^2) < visibility
         vis_35(i) = 1;
     end
-    if sqrt(obj36_x(1, 1, i)^2 + obj36_y(1, 1, i)^2) < visibility
+    if sqrt((obj36_x(1, 1, i)-x(i))^2 + (obj36_y(1, 1, i)-y(i))^2) < visibility
         vis_36(i) = 1;
     end
-    if sqrt(obj37_x(1, 1, i)^2 + obj37_y(1, 1, i)^2) < visibility
+    if sqrt((obj37_x(1, 1, i)-x(i))^2 + (obj37_y(1, 1, i)-y(i))^2) < visibility
         vis_37(i) = 1;
     end
-    if sqrt(obj38_x(1, 1, i)^2 + obj38_y(1, 1, i)^2) < visibility
+    if sqrt((obj38_x(1, 1, i)-x(i))^2 + (obj38_y(1, 1, i)-y(i))^2) < visibility
         vis_38(i) = 1;
     end
-    if sqrt(obj39_x(1, 1, i)^2 + obj39_y(1, 1, i)^2) < visibility
+    if sqrt((obj39_x(1, 1, i)-x(i))^2 + (obj39_y(1, 1, i)-y(i))^2) < visibility
         vis_39(i) = 1;
     end
-    if sqrt(obj40_x(1, 1, i)^2 + obj40_y(1, 1, i)^2) < visibility
+    if sqrt((obj40_x(1, 1, i)-x(i))^2 + (obj40_y(1, 1, i)-y(i))^2) < visibility
         vis_40(i) = 1;
     end
-    if sqrt(obj41_x(1, 1, i)^2 + obj41_y(1, 1, i)^2) < visibility
+    if sqrt((obj41_x(1, 1, i)-x(i))^2 + (obj41_y(1, 1, i)-y(i))^2) < visibility
         vis_41(i) = 1;
     end
-    if sqrt(obj42_x(1, 1, i)^2 + obj42_y(1, 1, i)^2) < visibility
+    if sqrt((obj42_x(1, 1, i)-x(i))^2 + (obj42_y(1, 1, i)-y(i))^2) < visibility
         vis_42(i) = 1;
     end
-    if sqrt(obj43_x(1, 1, i)^2 + obj43_y(1, 1, i)^2) < visibility
+    if sqrt((obj43_x(1, 1, i)-x(i))^2 + (obj43_y(1, 1, i)-y(i))^2) < visibility
         vis_43(i) = 1;
     end
-    if sqrt(obj44_x(1, 1, i)^2 + obj44_y(1, 1, i)^2) < visibility
+    if sqrt((obj44_x(1, 1, i)-x(i))^2 + (obj44_y(1, 1, i)-y(i))^2) < visibility
         vis_44(i) = 1;
     end
-    if sqrt(obj45_x(1, 1, i)^2 + obj45_y(1, 1, i)^2) < visibility
+    if sqrt((obj45_x(1, 1, i)-x(i))^2 + (obj45_y(1, 1, i)-y(i))^2) < visibility
         vis_45(i) = 1;
     end
-    if sqrt(obj46_x(1, 1, i)^2 + obj46_y(1, 1, i)^2) < visibility
+    if sqrt((obj46_x(1, 1, i)-x(i))^2 + (obj46_y(1, 1, i)-y(i))^2) < visibility
         vis_46(i) = 1;
     end
-    if sqrt(obj47_x(1, 1, i)^2 + obj47_y(1, 1, i)^2) < visibility
+    if sqrt((obj47_x(1, 1, i)-x(i))^2 + (obj47_y(1, 1, i)-y(i))^2) < visibility
         vis_47(i) = 1;
     end
-    if sqrt(obj48_x(1, 1, i)^2 + obj48_y(1, 1, i)^2) < visibility
+    if sqrt((obj48_x(1, 1, i)-x(i))^2 + (obj48_y(1, 1, i)-y(i))^2) < visibility
         vis_48(i) = 1;
     end
-    if sqrt(obj49_x(1, 1, i)^2 + obj49_y(1, 1, i)^2) < visibility
+    if sqrt((obj49_x(1, 1, i)-x(i))^2 + (obj49_y(1, 1, i)-y(i))^2) < visibility
         vis_49(i) = 1;
     end
-    if sqrt(obj50_x(1, 1, i)^2 + obj50_y(1, 1, i)^2) < visibility
+    if sqrt((obj50_x(1, 1, i)-x(i))^2 + (obj50_y(1, 1, i)-y(i))^2) < visibility
         vis_50(i) = 1;
     end
-    if sqrt(obj51_x(1, 1, i)^2 + obj51_y(1, 1, i)^2) < visibility
+    if sqrt((obj51_x(1, 1, i)-x(i))^2 + (obj51_y(1, 1, i)-y(i))^2) < visibility
         vis_51(i) = 1;
     end
-    if sqrt(obj52_x(1, 1, i)^2 + obj52_y(1, 1, i)^2) < visibility
+    if sqrt((obj52_x(1, 1, i)-x(i))^2 + (obj52_y(1, 1, i)-y(i))^2) < visibility
         vis_52(i) = 1;
     end
-    if sqrt(obj53_x(1, 1, i)^2 + obj53_y(1, 1, i)^2) < visibility
+    if sqrt((obj53_x(1, 1, i)-x(i))^2 + (obj53_y(1, 1, i)-y(i))^2) < visibility
         vis_53(i) = 1;
     end
-    if sqrt(obj54_x(1, 1, i)^2 + obj54_y(1, 1, i)^2) < visibility
+    if sqrt((obj54_x(1, 1, i)-x(i))^2 + (obj54_y(1, 1, i)-y(i))^2) < visibility
         vis_54(i) = 1;
     end
-    if sqrt(obj55_x(1, 1, i)^2 + obj55_y(1, 1, i)^2) < visibility
+    if sqrt((obj55_x(1, 1, i)-x(i))^2 + (obj55_y(1, 1, i)-y(i))^2) < visibility
         vis_55(i) = 1;
     end
-    if sqrt(obj56_x(1, 1, i)^2 + obj56_y(1, 1, i)^2) < visibility
+    if sqrt((obj56_x(1, 1, i)-x(i))^2 + (obj56_y(1, 1, i)-y(i))^2) < visibility
         vis_56(i) = 1;
     end
-    if sqrt(obj57_x(1, 1, i)^2 + obj57_y(1, 1, i)^2) < visibility
+    if sqrt((obj57_x(1, 1, i)-x(i))^2 + (obj57_y(1, 1, i)-y(i))^2) < visibility
         vis_57(i) = 1;
     end
-    if sqrt(obj58_x(1, 1, i)^2 + obj58_y(1, 1, i)^2) < visibility
+    if sqrt((obj58_x(1, 1, i)-x(i))^2 + (obj58_y(1, 1, i)-y(i))^2) < visibility
         vis_58(i) = 1;
     end
-    if sqrt(obj59_x(1, 1, i)^2 + obj59_y(1, 1, i)^2) < visibility
+    if sqrt((obj59_x(1, 1, i)-x(i))^2 + (obj59_y(1, 1, i)-y(i))^2) < visibility
         vis_59(i) = 1;
     end
-    if sqrt(obj60_x(1, 1, i)^2 + obj60_y(1, 1, i)^2) < visibility
+    if sqrt((obj60_x(1, 1, i)-x(i))^2 + (obj60_y(1, 1, i)-y(i))^2) < visibility
         vis_60(i) = 1;
     end
-    if sqrt(obj61_x(1, 1, i)^2 + obj61_y(1, 1, i)^2) < visibility
+    if sqrt((obj61_x(1, 1, i)-x(i))^2 + (obj61_y(1, 1, i)-y(i))^2) < visibility
         vis_61(i) = 1;
     end
-    if sqrt(obj62_x(1, 1, i)^2 + obj62_y(1, 1, i)^2) < visibility
+    if sqrt((obj62_x(1, 1, i)-x(i))^2 + (obj62_y(1, 1, i)-y(i))^2) < visibility
         vis_62(i) = 1;
     end
-    if sqrt(obj63_x(1, 1, i)^2 + obj63_y(1, 1, i)^2) < visibility
+    if sqrt((obj63_x(1, 1, i)-x(i))^2 + (obj63_y(1, 1, i)-y(i))^2) < visibility
         vis_63(i) = 1;
     end
-    if sqrt(obj64_x(1, 1, i)^2 + obj64_y(1, 1, i)^2) < visibility
+    if sqrt((obj64_x(1, 1, i)-x(i))^2 + (obj64_y(1, 1, i)-y(i))^2) < visibility
         vis_64(i) = 1;
     end
-    if sqrt(obj65_x(1, 1, i)^2 + obj65_y(1, 1, i)^2) < visibility
+    if sqrt((obj65_x(1, 1, i)-x(i))^2 + (obj65_y(1, 1, i)-y(i))^2) < visibility
         vis_65(i) = 1;
     end
-    if sqrt(obj66_x(1, 1, i)^2 + obj66_y(1, 1, i)^2) < visibility
+    if sqrt((obj66_x(1, 1, i)-x(i))^2 + (obj66_y(1, 1, i)-y(i))^2) < visibility
         vis_66(i) = 1;
     end
-    if sqrt(obj67_x(1, 1, i)^2 + obj67_y(1, 1, i)^2) < visibility
+    if sqrt((obj67_x(1, 1, i)-x(i))^2 + (obj67_y(1, 1, i)-y(i))^2) < visibility
         vis_67(i) = 1;
     end
-        if sqrt(obj68_x(1, 1, i)^2 + obj68_y(1, 1, i)^2) < visibility
+    if sqrt((obj68_x(1, 1, i)-x(i))^2 + (obj68_y(1, 1, i)-y(i))^2) < visibility
         vis_68(i) = 1;
     end
-    if sqrt(obj69_x(1, 1, i)^2 + obj69_y(1, 1, i)^2) < visibility
+    if sqrt((obj69_x(1, 1, i)-x(i))^2 + (obj69_y(1, 1, i)-y(i))^2) < visibility
         vis_69(i) = 1;
     end
-    if sqrt(obj70_x(1, 1, i)^2 + obj70_y(1, 1, i)^2) < visibility
+    if sqrt((obj70_x(1, 1, i)-x(i))^2 + (obj70_y(1, 1, i)-y(i))^2) < visibility
         vis_70(i) = 1;
     end
-    if sqrt(obj71_x(1, 1, i)^2 + obj71_y(1, 1, i)^2) < visibility
+    if sqrt((obj71_x(1, 1, i)-x(i))^2 + (obj71_y(1, 1, i)-y(i))^2) < visibility
         vis_71(i) = 1;
     end
-    if sqrt(obj72_x(1, 1, i)^2 + obj57_y(1, 1, i)^2) < visibility
+    if sqrt((obj72_x(1, 1, i)-x(i))^2 + (obj57_y(1, 1, i)-y(i))^2) < visibility
         vis_72(i) = 1;
     end
-    if sqrt(obj73_x(1, 1, i)^2 + obj73_y(1, 1, i)^2) < visibility
+    if sqrt((obj73_x(1, 1, i)-x(i))^2 + (obj73_y(1, 1, i)-y(i))^2) < visibility
         vis_73(i) = 1;
     end
 end
@@ -1025,7 +1159,6 @@ end
 % Saving generated data to structure which will be saved to .mat file and
 % used in simulation
 % Types: 1-car, 2-pedestrian, 3-sign, 4-building
-
 object = struct('type', {1, 1, 1, 4, 2, 4, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2}, ...
     'x', {obj0_x, obj1_x, obj2_x, obj3_x, obj4_x, obj5_x, obj6_x, obj7_x, obj8_x, obj9_x, obj10_x, obj11_x, obj12_x, obj13_x, obj14_x, obj15_x, obj16_x, obj17_x, obj18_x, obj19_x, obj20_x, obj21_x, obj22_x, obj23_x, obj24_x, obj25_x, obj26_x, obj27_x, obj28_x, obj29_x, obj30_x, obj31_x, obj32_x, obj33_x, obj34_x, obj35_x, obj36_x, obj37_x, obj38_x, obj39_x, obj40_x, obj41_x, obj42_x, obj43_x, obj44_x, obj45_x, obj46_x, obj47_x, obj48_x, obj49_x, obj50_x, obj51_x, obj52_x, obj53_x, obj54_x, obj55_x, obj56_x, obj57_x, obj58_x, obj59_x, obj60_x, obj61_x, obj62_x, obj63_x, obj64_x, obj65_x, obj66_x, obj67_x, obj68_x, obj69_x, obj70_x, obj71_x, obj72_x, obj73_x}, ... 
     'y', {obj0_y, obj1_y, obj2_y, obj3_y, obj4_y, obj5_y, obj6_y, obj7_y, obj8_y, obj9_y, obj10_y, obj11_y, obj12_y, obj13_y, obj14_y, obj15_y, obj16_y, obj17_y, obj18_y, obj19_y, obj20_y, obj21_y, obj22_y, obj23_y, obj24_y, obj25_y, obj26_y, obj27_y, obj28_y, obj29_y, obj30_y, obj31_y, obj32_y, obj33_y, obj34_y, obj35_y, obj36_y, obj37_y, obj38_y, obj39_y, obj40_y, obj41_y, obj42_y, obj43_y, obj44_y, obj45_y, obj46_y, obj47_y, obj48_y, obj49_y, obj50_y, obj51_y, obj52_y, obj53_y, obj54_y, obj55_y, obj56_y, obj57_y, obj58_y, obj59_y, obj60_y, obj61_y, obj62_y, obj63_y, obj64_y, obj65_y, obj66_y, obj67_y, obj68_y, obj69_y, obj70_y, obj71_y, obj72_y, obj73_y}, ...
@@ -1035,3 +1168,6 @@ object = struct('type', {1, 1, 1, 4, 2, 4, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
 
 % Saving object to .mat file with time vector
 save('dane.mat', 'object', 'time','x','y')
+
+% Clear workspace and close all windows
+clear all; close all;
